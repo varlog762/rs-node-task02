@@ -3,6 +3,7 @@ import os from "os";
 import readline from "readline";
 
 import { getUsername } from "./utils/getName.js";
+import { getSystemInfo } from "./utils/getSystemInfo.js";
 import * as Navigation from "./utils/nwd.js";
 
 const rl = readline.createInterface({
@@ -18,7 +19,7 @@ Navigation.changeDirectory(os.homedir());
 rl.prompt();
 
 rl.on("line", (input) => {
-  const [command, arg0, arg1] = input.trim().split(" ");
+  const [command, ...args] = input.trim().split(" ");
 
   switch (command) {
     case "up":
@@ -26,7 +27,7 @@ rl.on("line", (input) => {
       rl.prompt();
       break;
     case "cd":
-      Navigation.changeDirectory(arg0);
+      Navigation.changeDirectory(args[0]);
       rl.prompt();
       break;
     case "ls":
@@ -38,6 +39,11 @@ rl.on("line", (input) => {
         console.log(files.join("\n"));
         rl.prompt();
       });
+      break;
+    case "os":
+      console.log(getSystemInfo(args[0]));
+      console.log(`You are currently in ${Navigation.printWorkDirectory()}`);
+      rl.prompt();
       break;
     case ".exit":
       rl.close();
