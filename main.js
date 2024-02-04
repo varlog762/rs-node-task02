@@ -11,20 +11,24 @@ const rl = readline.createInterface({
 });
 
 const username = getUsername();
-Navigation.changeDirectory(os.homedir());
-
 console.log(`Welcome to the File Manager, ${username}!`);
-console.log(`You are currently in ${Navigation.printWorkDirectory()}`);
+
+Navigation.changeDirectory(os.homedir());
 
 rl.prompt();
 
 rl.on("line", (input) => {
-  const [command, ...args] = input.trim().split(" ");
+  const [command, arg0, arg1] = input.trim().split(" ");
 
   switch (command) {
     case "up":
       Navigation.changeDirectory("../");
       rl.prompt();
+      break;
+    case "cd":
+      Navigation.changeDirectory(arg0);
+      rl.prompt();
+      break;
     case "ls":
       fs.readdir(".", (err, files) => {
         if (err) {
