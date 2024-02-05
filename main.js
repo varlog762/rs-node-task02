@@ -8,6 +8,7 @@ import { calculateHash } from "./utils/calculateHash.js";
 import { compress } from "./utils/compress.js";
 import { decompress } from "./utils/decompress.js";
 import { createFile } from "./utils/createFile.js";
+import { removeFile } from "./utils/removeFile.js";
 import * as Navigation from "./utils/nwd.js";
 
 const rl = readline.createInterface({
@@ -28,6 +29,12 @@ rl.on("line", (input) => {
   switch (command) {
     case "add":
       createFile(args[0], () => {
+        console.log(`You are currently in ${Navigation.printWorkDirectory()}`);
+        rl.prompt();
+      });
+      break;
+    case "rm":
+      removeFile(args[0], () => {
         console.log(`You are currently in ${Navigation.printWorkDirectory()}`);
         rl.prompt();
       });
