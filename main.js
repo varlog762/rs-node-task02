@@ -4,6 +4,7 @@ import readline from "readline";
 
 import { getUsername } from "./utils/getName.js";
 import { getSystemInfo } from "./utils/getSystemInfo.js";
+import { calculateHash } from "./utils/calculateHash.js";
 import * as Navigation from "./utils/nwd.js";
 
 const rl = readline.createInterface({
@@ -45,6 +46,14 @@ rl.on("line", (input) => {
       console.log(`You are currently in ${Navigation.printWorkDirectory()}`);
       rl.prompt();
       break;
+    case "hash":
+      calculateHash(args[0], () => {
+        rl.prompt();
+      });
+      break;
+    // case "test":
+    //   isFileAvailable(args[0]);
+    //   break;
     case ".exit":
       rl.close();
       break;
