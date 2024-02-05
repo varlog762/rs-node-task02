@@ -10,3 +10,16 @@ export async function isPathAvailable(filePath) {
     throw error;
   }
 }
+
+export async function throwErrorIfFileExists(filePath) {
+  const absolutePath = path.resolve(filePath);
+
+  try {
+    await fs.access(absolutePath, fs.constants.F_OK);
+    throw new Error("Operation failed");
+  } catch (error) {
+    if (error.code !== "ENOENT") {
+      throw error;
+    }
+  }
+}

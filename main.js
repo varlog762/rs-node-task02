@@ -7,6 +7,7 @@ import { getSystemInfo } from "./utils/getSystemInfo.js";
 import { calculateHash } from "./utils/calculateHash.js";
 import { compress } from "./utils/compress.js";
 import { decompress } from "./utils/decompress.js";
+import { createFile } from "./utils/createFile.js";
 import * as Navigation from "./utils/nwd.js";
 
 const rl = readline.createInterface({
@@ -25,6 +26,12 @@ rl.on("line", (input) => {
   const [command, ...args] = input.trim().split(" ");
 
   switch (command) {
+    case "add":
+      createFile(args[0], () => {
+        console.log(`You are currently in ${Navigation.printWorkDirectory()}`);
+        rl.prompt();
+      });
+      break;
     case "up":
       Navigation.changeDirectory("../");
       rl.prompt();
