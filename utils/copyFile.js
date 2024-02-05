@@ -11,14 +11,17 @@ export async function copyFile(
 ) {
   if (filePath && destinationPath) {
     const absoluteFilePath = path.resolve(filePath);
-    const absoluteDestinationPath = path.resolve(destinationPath);
+    const absoluteDestinationFilePath = path.join(
+      destinationPath,
+      path.basename(absoluteFilePath)
+    );
 
     try {
       await CheckFS.isPathAvailable(absoluteFilePath);
-      await CheckFS.throwErrorIfFileExists(absoluteDestinationPath);
+      await CheckFS.throwErrorIfFileExists(absoluteDestinationFilePath);
 
       const readStream = fs.createReadStream(absoluteFilePath);
-      const writeStream = fs.createWriteStream(absoluteDestinationPath);
+      const writeStream = fs.createWriteStream(absoluteDestinationFilePath);
 
       readStream.pipe(writeStream);
 
