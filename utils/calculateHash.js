@@ -2,14 +2,14 @@ import fs from "fs";
 import path from "path";
 import crypto from "crypto";
 
-import { isFileAvailable } from "./checkFileSystem.js";
+import { isPathAvailable } from "./checkFileSystem.js";
 
 export async function calculateHash(filePath, callback) {
   if (filePath) {
     const absolutePath = path.resolve(filePath);
 
     try {
-      await isFileAvailable(absolutePath);
+      await isPathAvailable(absolutePath);
 
       const hash = crypto.createHash("sha256");
       const readStream = fs.createReadStream(absolutePath);
@@ -22,10 +22,6 @@ export async function calculateHash(filePath, callback) {
         const hexHash = hash.digest("hex");
         console.log("SHA256 Hash:", hexHash);
         callback();
-      });
-
-      readStream.on("error", (error) => {
-        console.error(error);
       });
     } catch (error) {
       console.log("Operation failed");

@@ -1,7 +1,7 @@
 import { promises as fs } from "fs";
 import path from "path";
 
-export async function isFileAvailable(filePath) {
+export async function isPathAvailable(filePath) {
   const absolutePath = path.resolve(filePath);
 
   try {
