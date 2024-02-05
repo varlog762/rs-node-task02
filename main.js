@@ -10,6 +10,7 @@ import { decompress } from "./utils/decompress.js";
 import { createFile } from "./utils/createFile.js";
 import { removeFile } from "./utils/removeFile.js";
 import { renameFile } from "./utils/renameFile.js";
+import { readFile } from "./utils/readFile.js";
 import * as Navigation from "./utils/nwd.js";
 
 const rl = readline.createInterface({
@@ -42,6 +43,12 @@ rl.on("line", (input) => {
       break;
     case "rn":
       renameFile(args[0], args[1], () => {
+        console.log(`You are currently in ${Navigation.printWorkDirectory()}`);
+        rl.prompt();
+      });
+      break;
+    case "cat":
+      readFile(args[0], () => {
         console.log(`You are currently in ${Navigation.printWorkDirectory()}`);
         rl.prompt();
       });
@@ -92,6 +99,7 @@ rl.on("line", (input) => {
       break;
     default:
       console.log("Invalid input");
+      console.log(`You are currently in ${Navigation.printWorkDirectory()}`);
       rl.prompt();
       break;
   }
