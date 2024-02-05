@@ -5,7 +5,7 @@ import { isPathAvailable } from "./checkFileSystem.js";
 
 export async function removeFile(filePath, callback, message = "") {
   if (filePath) {
-    const absoluteFilePath = path.join(filePath);
+    const absoluteFilePath = path.resolve(filePath);
 
     try {
       await isPathAvailable(absoluteFilePath);

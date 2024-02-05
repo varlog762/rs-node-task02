@@ -5,14 +5,14 @@ import * as CheckFS from "./checkFileSystem.js";
 
 export async function copyFile(
   filePath,
-  destinationPath,
+  newDirectoryPath,
   callback,
   message = ""
 ) {
-  if (filePath && destinationPath) {
+  if (filePath && newDirectoryPath) {
     const absoluteFilePath = path.resolve(filePath);
     const absoluteDestinationFilePath = path.join(
-      destinationPath,
+      newDirectoryPath,
       path.basename(absoluteFilePath)
     );
 

@@ -12,6 +12,7 @@ import { removeFile } from "./utils/removeFile.js";
 import { renameFile } from "./utils/renameFile.js";
 import { readFile } from "./utils/readFile.js";
 import { copyFile } from "./utils/copyFile.js";
+import { moveFile } from "./utils/moveFile.js";
 import * as Navigation from "./utils/nwd.js";
 
 const rl = readline.createInterface({
@@ -35,6 +36,7 @@ rl.on("line", (input) => {
         printWorkDirectoryAndPrompt();
       });
       break;
+
     case "rm":
       removeFile(
         args[0],
@@ -44,16 +46,19 @@ rl.on("line", (input) => {
         "File removed successfully"
       );
       break;
+
     case "rn":
       renameFile(args[0], args[1], () => {
         printWorkDirectoryAndPrompt();
       });
       break;
+
     case "cat":
       readFile(args[0], () => {
         printWorkDirectoryAndPrompt();
       });
       break;
+
     case "cp":
       copyFile(
         args[0],
@@ -64,14 +69,23 @@ rl.on("line", (input) => {
         "File copied successfully"
       );
       break;
+
+    case "mv":
+      moveFile(args[0], args[1], () => {
+        printWorkDirectoryAndPrompt();
+      });
+      break;
+
     case "up":
       Navigation.changeDirectory("../");
       rl.prompt();
       break;
+
     case "cd":
       Navigation.changeDirectory(args[0]);
       rl.prompt();
       break;
+
     case "ls":
       fs.readdir(".", (err, files) => {
         if (err) {
@@ -82,28 +96,34 @@ rl.on("line", (input) => {
         rl.prompt();
       });
       break;
+
     case "os":
       console.log(getSystemInfo(args[0]));
       printWorkDirectoryAndPrompt();
       break;
+
     case "hash":
       calculateHash(args[0], () => {
         printWorkDirectoryAndPrompt();
       });
       break;
+
     case "compress":
       compress(args[0], args[1], () => {
         printWorkDirectoryAndPrompt();
       });
       break;
+
     case "decompress":
       decompress(args[0], args[1], () => {
         printWorkDirectoryAndPrompt();
       });
       break;
+
     case ".exit":
       rl.close();
       break;
+
     default:
       console.log("Invalid input");
       printWorkDirectoryAndPrompt();
