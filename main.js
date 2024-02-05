@@ -9,6 +9,7 @@ import { compress } from "./utils/compress.js";
 import { decompress } from "./utils/decompress.js";
 import { createFile } from "./utils/createFile.js";
 import { removeFile } from "./utils/removeFile.js";
+import { renameFile } from "./utils/renameFile.js";
 import * as Navigation from "./utils/nwd.js";
 
 const rl = readline.createInterface({
@@ -35,6 +36,12 @@ rl.on("line", (input) => {
       break;
     case "rm":
       removeFile(args[0], () => {
+        console.log(`You are currently in ${Navigation.printWorkDirectory()}`);
+        rl.prompt();
+      });
+      break;
+    case "rn":
+      renameFile(args[0], args[1], () => {
         console.log(`You are currently in ${Navigation.printWorkDirectory()}`);
         rl.prompt();
       });
