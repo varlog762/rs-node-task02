@@ -6,6 +6,7 @@ import { getUsername } from "./utils/getName.js";
 import { getSystemInfo } from "./utils/getSystemInfo.js";
 import { calculateHash } from "./utils/calculateHash.js";
 import { compress } from "./utils/compress.js";
+import { decompress } from "./utils/decompress.js";
 import * as Navigation from "./utils/nwd.js";
 
 const rl = readline.createInterface({
@@ -55,6 +56,12 @@ rl.on("line", (input) => {
       break;
     case "compress":
       compress(args[0], args[1], () => {
+        console.log(`You are currently in ${Navigation.printWorkDirectory()}`);
+        rl.prompt();
+      });
+      break;
+    case "decompress":
+      decompress(args[0], args[1], () => {
         console.log(`You are currently in ${Navigation.printWorkDirectory()}`);
         rl.prompt();
       });

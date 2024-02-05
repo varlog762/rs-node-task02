@@ -4,7 +4,11 @@ import path from "path";
 
 import { isPathAvailable } from "./checkFileSystem.js";
 
-export async function compress(sourceFilePath, destinationFilePath, callback) {
+export async function decompress(
+  sourceFilePath,
+  destinationFilePath,
+  callback
+) {
   if (sourceFilePath && destinationFilePath) {
     const absoluteSourceFilePath = path.resolve(sourceFilePath);
     const absoluteDestinationFilePath = path.resolve(destinationFilePath);
@@ -14,17 +18,17 @@ export async function compress(sourceFilePath, destinationFilePath, callback) {
       await isPathAvailable(path.dirname(absoluteDestinationFilePath));
 
       const readStream = fs.createReadStream(absoluteSourceFilePath);
-      const compressor = zlib.createBrotliCompress();
+      const decompressor = zlib.createBrotliDecompress();
       const writeStream = fs.createWriteStream(absoluteDestinationFilePath);
 
-      readStream.pipe(compressor).pipe(writeStream);
+      readStream.pipe(decompressor).pipe(writeStream);
 
-      compressor.on("error", (error) => {
+      decompressor.on("error", (error) => {
         console.error(`Operation failed: ${error.message}`);
         callback();
       });
 
-      console.log("File compressed successfully");
+      console.log("File decompressed successfully");
 
       callback();
     } catch (error) {
