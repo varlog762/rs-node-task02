@@ -13,6 +13,7 @@ import { renameFile } from "./utils/renameFile.js";
 import { readFile } from "./utils/readFile.js";
 import { copyFile } from "./utils/copyFile.js";
 import { moveFile } from "./utils/moveFile.js";
+import { ls } from "./utils/ls.js";
 import * as Navigation from "./utils/nwd.js";
 
 const rl = readline.createInterface({
@@ -87,13 +88,16 @@ rl.on("line", (input) => {
       break;
 
     case "ls":
-      fs.readdir(".", (err, files) => {
-        if (err) {
-          console.error("Error:", err);
-          return;
-        }
-        console.log(files.join("\n"));
-        rl.prompt();
+      // fs.readdir(".", (err, files) => {
+      //   if (err) {
+      //     console.error("Error:", err);
+      //     return;
+      //   }
+      //   console.log(files.join("\n"));
+      //   rl.prompt();
+      // });
+      ls(".", () => {
+        printWorkDirectoryAndPrompt();
       });
       break;
 
