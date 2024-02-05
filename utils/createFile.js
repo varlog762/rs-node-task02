@@ -16,5 +16,8 @@ export async function createFile(fileName, callback) {
       console.log("Operation failed");
       callback();
     }
+  } else {
+    console.log("Operation failed");
+    callback();
   }
 }

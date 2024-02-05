@@ -23,5 +23,8 @@ export async function renameFile(filePath, newName, callback) {
       console.log("Operation failed");
       callback();
     }
+  } else {
+    console.log("Operation failed");
+    callback();
   }
 }

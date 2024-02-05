@@ -25,5 +25,8 @@ export async function readFile(filePath, callback) {
       console.log("Operation failed");
       callback();
     }
+  } else {
+    console.log("Operation failed");
+    callback();
   }
 }
